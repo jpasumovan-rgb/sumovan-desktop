@@ -1,0 +1,31 @@
+name: Build Windows app
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Get the SUMO STRONG icon
+        shell: pwsh
+        run: Invoke-WebRequest -Uri "https://raw.githubusercontent.com/jpasumovan-rgb/SUMOVAN-STRONG/main/icon-512.png" -OutFile icon.png
+      - run: npm install
+      - run: npm run dist
+      - name: Publish download link (release "desktop")
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: desktop
+          name: SUMOVAN MM DOCs (Windows installer)
+          body: "Latest build. Download SUMOVAN-MM-DOCs-Setup.exe below and run it."
+          files: dist/SUMOVAN-MM-DOCs-Setup.exe
+          make_latest: false
