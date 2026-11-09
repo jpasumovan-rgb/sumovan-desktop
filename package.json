@@ -1,0 +1,18 @@
+{
+  "name": "sumovan-mm-docs",
+  "productName": "SUMOVAN MM DOCs",
+  "version": "1.0.0",
+  "description": "SUMOVAN MM DOCs GENERATOR - Windows desktop app",
+  "main": "main.js",
+  "author": "SUMOVAN LOGISTICS CORP.",
+  "scripts": { "dist": "electron-builder --win --publish never" },
+  "devDependencies": { "electron": "^33.2.0", "electron-builder": "^25.1.8" },
+  "build": {
+    "appId": "ph.sumovan.mmdocs.desktop",
+    "productName": "SUMOVAN MM DOCs",
+    "artifactName": "SUMOVAN-MM-DOCs-Setup.exe",
+    "files": ["main.js", "icon.png"],
+    "win": { "target": ["nsis"], "icon": "icon.png" },
+    "nsis": { "oneClick": true, "perMachine": false, "createDesktopShortcut": "always", "createStartMenuShortcut": true, "runAfterFinish": true, "shortcutName": "SUMOVAN MM DOCs" }
+  }
+}
